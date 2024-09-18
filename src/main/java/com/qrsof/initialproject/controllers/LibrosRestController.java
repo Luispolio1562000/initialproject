@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/libros")
 public class LibrosRestController {
-   @Autowired
-   private ILibroService libroService;
+    @Autowired
+    private ILibroService libroService;
 
     @GetMapping("/")
     public ResponseEntity<LibroResponseRest> obtenerLibros() {
@@ -25,9 +25,25 @@ public class LibrosRestController {
         ResponseEntity<LibroResponseRest> response = libroService.obtenerLibro(id);
         return response;
     }
+
     @PostMapping("/crear")
     public ResponseEntity<LibroResponseRest> crearLibro(@RequestBody Libro request) {
         ResponseEntity<LibroResponseRest> response = libroService.crearLibro(request);
         return response;
     }
+
+
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<LibroResponseRest> actualizarLibro(@RequestBody Libro request, @PathVariable Long id) {
+        ResponseEntity<LibroResponseRest> response = libroService.actualizarLibro(request, id);
+        return response;
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<LibroResponseRest> eliminarLibro(@PathVariable Long id) {
+        ResponseEntity<LibroResponseRest> response = libroService.borrarLibro(id);
+        return response;
+    }
+
 }

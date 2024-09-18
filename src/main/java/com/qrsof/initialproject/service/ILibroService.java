@@ -8,4 +8,6 @@ public interface ILibroService {
     public ResponseEntity<LibroResponseRest> obtenerLibros();
     public ResponseEntity<LibroResponseRest> obtenerLibro(Long id);
     public ResponseEntity<LibroResponseRest> crearLibro(Libro libro);
+    public ResponseEntity<LibroResponseRest> actualizarLibro(Libro libro, Long id);
+    public ResponseEntity<LibroResponseRest> borrarLibro(Long id);
 }

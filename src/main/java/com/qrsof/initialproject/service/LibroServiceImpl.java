@@ -94,7 +94,7 @@ public class LibroServiceImpl implements ILibroService {
             } else {
                 log.warn("Libro no creado");
                 libroResponseRest.setMetadata("Respuesta Error", "500", "Error al crear libro");
-            return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             log.error("Error al crear libro", e.getMessage());
@@ -104,5 +104,61 @@ public class LibroServiceImpl implements ILibroService {
             log.info("Fin creando libro");
         }
         return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.CREATED);
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<LibroResponseRest> actualizarLibro(Libro libro, Long id) {
+        log.info("Actualizando libro", libro);
+        LibroResponseRest libroResponseRest = new LibroResponseRest();
+        List<Libro> libroList = new ArrayList<>();
+        try {
+            Optional<Libro> libroBuscado = libroDao.findById(id);
+            if (libroBuscado.isPresent()) {
+                libroBuscado.get().setTitulo(libro.getTitulo());
+                libroBuscado.get().setDescripcion(libro.getDescripcion());
+
+                Libro libroUpdate = libroDao.save(libroBuscado.get());
+                if (libroUpdate != null) {
+                    libroList.add(libroUpdate);
+                    libroResponseRest.getLibroResponse().setLibros(libroList);
+                } else {
+                    log.warn("Error al actualizar libro");
+                    libroResponseRest.setMetadata("Respuesta Error", "404", "Error al actualizar libro");
+                    return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.BAD_REQUEST);
+                }
+            } else {
+                log.warn("Error al actualizar libro");
+                libroResponseRest.setMetadata("Respuesta Error", "404", "Error al actualizar libro");
+                return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            log.error("Error al obtener libros", e.getMessage());
+            return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } finally {
+            log.info("Fin actualizando libro");
+        }
+        libroResponseRest.setMetadata("Respuesta Ok", "202", "Respuesta exitosa");
+        return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<LibroResponseRest> borrarLibro(Long id) {
+        log.info("Borrando libro");
+        LibroResponseRest libroResponseRest = new LibroResponseRest();
+        try {
+            libroDao.deleteById(id);
+            log.info("Libro borrado");
+            libroResponseRest.setMetadata("Respuesta Ok", "201", "Libro eliminado");
+        } catch (Exception e) {
+            log.error("Error al borrar libro", e.getMessage());
+            e.getStackTrace();
+            libroResponseRest.setMetadata("Respuesta Error", "404", "Error al borrar libro");
+        } finally {
+            log.info("Fin borrar libro");
+        }
+        libroResponseRest.setMetadata("Respuesta Ok", "201", "Respuesta exitosa");
+        return new ResponseEntity<LibroResponseRest>(libroResponseRest, HttpStatus.ACCEPTED);
     }
 }
