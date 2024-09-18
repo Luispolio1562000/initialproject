@@ -1,4 +1,4 @@
-package com.qrsof.initialproject.response;
+package com.qrsof.initialproject.response.categorias;
 
 import com.qrsof.initialproject.model.Categoria;
 

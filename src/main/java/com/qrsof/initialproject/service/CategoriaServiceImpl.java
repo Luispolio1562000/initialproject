@@ -3,14 +3,13 @@ package com.qrsof.initialproject.service;
 
 import com.qrsof.initialproject.model.Categoria;
 import com.qrsof.initialproject.model.dao.ICategoriaDao;
-import com.qrsof.initialproject.response.CaterogiaResponseRest;
+import com.qrsof.initialproject.response.categorias.CaterogiaResponseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class CategoriaServiceImpl implements ICategoriaService {
             caterogiaResponseRest.setMetadata("Respuesta Ok", "200", "Respuesta exitosa");
         } catch (Exception e) {
             caterogiaResponseRest.setMetadata("Respuesta Error", "500", "Error al buscar categorias");
-            log.error("Error al consultar categorias", e.getMessage());
+            log.error("Error al consultar categorias");
             e.getStackTrace();
             return new ResponseEntity<CaterogiaResponseRest>(caterogiaResponseRest, HttpStatus.INTERNAL_SERVER_ERROR);
         } finally {

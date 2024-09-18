@@ -1,7 +1,7 @@
 package com.qrsof.initialproject.service;
 
 import com.qrsof.initialproject.model.Categoria;
-import com.qrsof.initialproject.response.CaterogiaResponseRest;
+import com.qrsof.initialproject.response.categorias.CaterogiaResponseRest;
 import org.springframework.http.ResponseEntity;
 
 public interface ICategoriaService {

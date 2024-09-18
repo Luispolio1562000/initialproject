@@ -1,4 +1,6 @@
-package com.qrsof.initialproject.response;
+package com.qrsof.initialproject.response.categorias;
+
+import com.qrsof.initialproject.response.ResponseRest;
 
 public class CaterogiaResponseRest extends ResponseRest {
     private CategoriaResponse categoriaResponse = new CategoriaResponse();

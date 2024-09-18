@@ -2,7 +2,7 @@ package com.qrsof.initialproject.controllers;
 
 
 import com.qrsof.initialproject.model.Categoria;
-import com.qrsof.initialproject.response.CaterogiaResponseRest;
+import com.qrsof.initialproject.response.categorias.CaterogiaResponseRest;
 import com.qrsof.initialproject.service.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
