@@ -4,7 +4,7 @@ import com.qrsof.initialproject.model.Categoria;
 import com.qrsof.initialproject.model.dao.ICategoriaDao;
 
 import com.qrsof.initialproject.response.categorias.CaterogiaResponseRest;
-import org.aspectj.lang.annotation.Before;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +23,7 @@ public class CategoriaServicesImplTest {
     CategoriaServiceImpl categoriaService;
     @Mock
     ICategoriaDao categoriaDao;
-    List<Categoria> categorias;
+    List<Categoria> categorias = new ArrayList<>();
 
     @BeforeEach
     public void init() {
@@ -41,6 +41,7 @@ public class CategoriaServicesImplTest {
         verify(categoriaDao, times(1)).findAll();
     }
 
+    @BeforeEach
     public void cargarCategorias() {
         Categoria categoria1 = new Categoria(Long.valueOf(1), "Historia", "Libros de historia");
         Categoria categoria2 = new Categoria(Long.valueOf(2), "Ciencia", "Libros de ciencia");
